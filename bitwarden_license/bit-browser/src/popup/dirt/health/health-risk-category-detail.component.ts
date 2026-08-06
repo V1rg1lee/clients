@@ -23,6 +23,8 @@ import {
   ButtonModule,
   IconButtonModule,
   SvgModule,
+  MenuModule,
+  IconModule,
 } from "@bitwarden/components";
 import { I18nPipe } from "@bitwarden/ui-common";
 import { PasswordRepromptService } from "@bitwarden/vault";
@@ -46,6 +48,8 @@ import { PasswordRepromptService } from "@bitwarden/vault";
     I18nPipe,
     SvgModule,
     NoItemsModule,
+    MenuModule,
+    IconModule,
   ],
 })
 export class HealthRiskCategoryDetailComponent {
@@ -107,6 +111,10 @@ export class HealthRiskCategoryDetailComponent {
     await this.router.navigate(["/view-cipher"], {
       queryParams: { cipherId: item.id, type: item.type },
     });
+  };
+
+  readonly onDeleteItem = async (item: CipherView) => {
+    // TODO: open delete dialog for selected item
   };
 
   // TODO: REMOVE - FOR TESTING ONLY
