@@ -25,9 +25,13 @@ import {
   SvgModule,
   MenuModule,
   IconModule,
+  DialogService,
+  CenterPositionStrategy,
 } from "@bitwarden/components";
 import { I18nPipe } from "@bitwarden/ui-common";
 import { PasswordRepromptService } from "@bitwarden/vault";
+
+import { HealthDeleteAtRiskItemDialogComponent } from "./health-delete-at-risk-item-dialog.component";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -58,6 +62,7 @@ export class HealthRiskCategoryDetailComponent {
   readonly changeLoginPasswordService = inject(ChangeLoginPasswordService);
   readonly passwordRepromptService = inject(PasswordRepromptService);
   readonly platformUtilsService = inject(PlatformUtilsService);
+  readonly dialogService = inject(DialogService);
 
   readonly category = toSignal(this.route.params.pipe(map((params) => params["category"])));
   readonly contentKeys = computed<{
@@ -114,7 +119,9 @@ export class HealthRiskCategoryDetailComponent {
   };
 
   readonly onDeleteItem = async (item: CipherView) => {
-    // TODO: open delete dialog for selected item
+    await this.dialogService.open(HealthDeleteAtRiskItemDialogComponent, {
+      positionStrategy: new CenterPositionStrategy(),
+    });
   };
 
   // TODO: REMOVE - FOR TESTING ONLY
